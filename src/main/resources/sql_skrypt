@@ -1,0 +1,25 @@
+create schema spring_cms;
+use spring_cms;
+create table Category
+(
+    id int auto_increment, primary key (id),
+    name varchar(100) default 'nazwa',
+    description varchar(200) null
+);
+create table Author
+(
+    id int auto_increment, primary key(id),
+    firstName varchar(25) default 'imie',
+    lastName varchar(25) default 'nazwisko'
+);
+
+create table Article
+(
+    id int auto_increment, primary key(id),
+    title varchar(200) default 'title',
+    author varchar(50) default 'autor',
+    categories varchar(25) default 'kategoria',
+    content varchar(1000) default 'content',
+    created varchar(25),
+    updated varchar(25)
+);

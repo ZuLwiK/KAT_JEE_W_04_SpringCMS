@@ -11,18 +11,21 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public class CategoryDao {
+
+
     @PersistenceContext
     EntityManager entityManager;
     public void saveCategory (Category category) {
         entityManager.persist(category);
     }
-    public void delete (Category category) {
-        entityManager.remove(category);
+    public void deleteCategory (Long id) {
+        entityManager.remove(findCategoryById(id));
     }
-    public Category findById (Long id) {
+    public Category findCategoryById (Long id) {
         return entityManager.find(Category.class, id);
     }
-    public void update(Category category) {
+    public void updateCategory(Category category) {
         entityManager.merge(category);
     }
+
 }

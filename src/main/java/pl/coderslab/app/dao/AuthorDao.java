@@ -14,19 +14,19 @@ public class AuthorDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void save(Author author) {
+    public void saveAuthor(Author author) {
         entityManager.persist(author);
     }
 
-    public void delete(Author author) {
-        entityManager.remove(author);
+    public void deleteAuthor(Long id) {
+        entityManager.remove(findAuthorById(id));
     }
 
-    public Author findById(Long id) {
+    public Author findAuthorById(Long id) {
         return entityManager.find(Author.class, id);
     }
 
-    public void update(Author author) {
+    public void updateAuthor(Author author) {
         entityManager.merge(author);
     }
 }
