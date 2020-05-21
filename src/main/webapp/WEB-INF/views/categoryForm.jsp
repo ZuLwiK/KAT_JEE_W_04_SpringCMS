@@ -27,13 +27,13 @@
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
         <form:form method="POST" modelAttribute="category" id="addCategoryForm">
         <div class="form-group">
-            <label for="name">Title:</label>
+            <label for="name">Name:</label>
             <form:input id="name" path="name" class="form-control" required="true"/><form:errors path="name"/>
         </div>
 
         <div class="form-group">
-            <label for="description">Rating:</label>
-            <form:input path="rating" id="description" class="form-control"/><form:errors path="description"/>
+            <label for="description">Description:</label>
+            <form:input path="description" id="description" class="form-control"/><form:errors path="description"/>
         </div>
             <a href='/categories/all'><button type="button" id="cancelForm" class="btn btn-primary">Cancel</button></a>
             <button type="submit" id="submitForm" class="btn btn-primary">Submit</button>

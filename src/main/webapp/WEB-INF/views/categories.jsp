@@ -19,7 +19,7 @@
             <tr>
                 <th>Name:</th>
                 <th>Description:</th>
-                <th colspan="2"><a href='/categoryForm'>
+                <th colspan="2"><a href='/categories/add'>
                     <button>Add</button>
                 </a></th>
             </tr>
@@ -27,7 +27,7 @@
                 <tr>
                     <td><c:out value="${category.name}"/></td>
                     <td><c:out value="${category.description}"/></td>
-                    <td><a href='/categoryForm/editForm/${category.id}'>
+                    <td><a href='/categories/edit/${category.id}'>
                         <button class="bullet-button">Edit</button>
                     </a></td>
                     <td>
