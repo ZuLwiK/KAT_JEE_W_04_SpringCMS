@@ -77,7 +77,7 @@ public class CategoryController {
         return "categoryForm";
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String create(Category category) {
+    public String create(@ModelAttribute Category category) {
         categoryDao.saveCategory(category);
         return ("redirect:/categories/all");
     }
@@ -89,13 +89,13 @@ public class CategoryController {
         return "editCategoryForm";
     }
     @RequestMapping(value = "edit/{id}", method = RequestMethod.POST)
-    public String update(Category category) {
+    public String update(@ModelAttribute Category category) {
         categoryDao.updateCategory(category);
         return "redirect:/categories/all";
     }
     // Usuwanie kategorii
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(Category category){
+    public String delete(@ModelAttribute Category category){
         categoryDao.deleteCategory(category);
         return "redirect:/categories/all";
     }

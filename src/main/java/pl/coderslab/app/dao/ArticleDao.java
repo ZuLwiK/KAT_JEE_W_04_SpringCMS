@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -17,12 +18,12 @@ public class ArticleDao {
     EntityManager entityManager;
 
     public void saveArticle(Article article) {
-        article.setCreated(LocalDateTime.now());
+        article.setCreated(LocalTime.now());
         entityManager.persist(article);
     }
 
-    public void deleteArticle(Long id) {
-        entityManager.remove(findArticleById(id));
+    public void deleteArticle(Article article) {
+        entityManager.remove(entityManager.contains(article) ? article : entityManager.merge(article));
     }
 
     public Article findArticleById(Long id) {
@@ -30,17 +31,21 @@ public class ArticleDao {
     }
 
     public void updateArticle(Article article) {
-        article.setUpdated(LocalDateTime.now());
+//        article.setCreated(article.getCreated());
+//        article.setUpdated(LocalTime.now());
         entityManager.merge(article);
     }
-    public List<Article> findLastFiveArticles(){
+
+    public List<Article> findLastFiveArticles() {
         Query query = entityManager.createQuery("SELECT a FROM Article a ORDER BY a.created DESC");
         query.setMaxResults(5);
         List<Article> articles = query.getResultList();
         return articles;
     }
-    public List<Article> findAllArticles(){
-        Query query = entityManager.createQuery("SELECT a FROM Article a ORDER BY a.created DESC");
+
+    public List<Article> findAllArticles() {
+//        Query query = entityManager.createQuery("SELECT article FROM Article article LEFT JOIN FETCH article.categories category ORDER BY article.created DESC ");
+        Query query = entityManager.createQuery("SELECT article FROM Article article ORDER BY article.created DESC ");
         List<Article> articles = query.getResultList();
         return articles;
     }

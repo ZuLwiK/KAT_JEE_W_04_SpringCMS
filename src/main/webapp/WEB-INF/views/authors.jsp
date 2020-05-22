@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Authors</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,26 +14,26 @@
     <div class="col-md-7 col-md-6 col-sm-offset-3">
         <table class="table table-bordered">
             <tr>
-                <th colspan="4">Categories</th>
+                <th colspan="4">Authors</th>
             </tr>
             <tr>
-                <th>Name:</th>
-                <th>Description:</th>
-                <th colspan="2"><a href='/categories/add'>
+                <th>First name:</th>
+                <th>Last name:</th>
+                <th colspan="2"><a href='/authors/add'>
                     <button>Add</button>
                 </a></th>
             </tr>
-            <c:forEach items="${categories}" var="category">
+            <c:forEach items="${authors}" var="author">
                 <tr>
-                    <td><c:out value="${category.name}"/></td>
-                    <td><c:out value="${category.description}"/></td>
-                    <td><a href='/categories/edit/${category.id}'>
+                    <td><c:out value="${author.firstName}"/></td>
+                    <td><c:out value="${author.lastName}"/></td>
+                    <td><a href='/authors/edit/${author.id}'>
                         <button class="bullet-button">Edit</button>
                     </a></td>
                     <td>
-                        <form action="/categories/delete/${category.id}" method="post" th:object="${category}">
+                        <form action="/authors/delete/${author.id}" method="post" th:object="${author}">
                             <input type="SUBMIT" value="Delete"
-                                   onclick="return confirm('Are you sure you want delete this category?')"
+                                   onclick="return confirm('Are you sure you want delete this author?')"
                                    class="decrement-arrow-button"/></form>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                 <td colspan="4"><a href="/articles/all"> Article List </a></td>
             </tr>
             <tr>
-                <td colspan="4"><a href="/authors/all"> Author List </a></td>
+                <td colspan="4"><a href="/categories/all"> Category List </a></td>
             </tr>
             <tr>
                 <td colspan="4"><a href="/"> <<<--- Back To HomePage </a></td>

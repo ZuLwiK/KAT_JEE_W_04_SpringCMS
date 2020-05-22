@@ -1,7 +1,9 @@
 package pl.coderslab.app.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.app.dao.ArticleDao;
 import pl.coderslab.app.entity.Article;
@@ -22,11 +24,11 @@ public class HomePageController {
 
     }
 
-    @RequestMapping("/")
-    @ResponseBody
-    public List<Article> lastFiveArticles() {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String lastFiveArticles(Model model) {
         List<Article> articles = articleDao.findLastFiveArticles();
-        return articles;
+        model.addAttribute("articles",articles);
+        return "home";
     }
 //    @RequestMapping("/populate")
 //    @ResponseBody

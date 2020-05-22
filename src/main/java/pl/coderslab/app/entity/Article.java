@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,9 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Max(value = 200)
+    @Column(length=200)
+    @NotNull
+    @Size(max = 200)
     private String title;
 
     @JsonIgnore
@@ -24,21 +28,21 @@ public class Article {
     private Author author;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "articles_categories",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "article_category",
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-
-
     private List<Category> categories = new ArrayList<>();
 
+    @NotNull
+    @Size(min=500)
     private String content;
 
-    private LocalDateTime created;
+    private LocalTime created;
 
-    private LocalDateTime updated;
+    private LocalTime updated;
 
-//    public Article(@Max(value = 200) String title, Author author, List<Category> categories, String content, LocalDateTime created, LocalDateTime updated) {
+//    public Article(@Max(value = 200) String title, Author author, List<Category> categories, String content, LocalTime created, LocalTime updated) {
 //        this.title = title;
 //        this.author = author;
 //        this.categories = categories;
@@ -69,11 +73,11 @@ public class Article {
         return content;
     }
 
-    public LocalDateTime getCreated() {
+    public LocalTime getCreated() {
         return created;
     }
 
-    public LocalDateTime getUpdated() {
+    public LocalTime getUpdated() {
         return updated;
     }
 
@@ -97,11 +101,11 @@ public class Article {
         this.content = content;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(LocalTime created) {
         this.created = created;
     }
 
-    public void setUpdated(LocalDateTime updated) {
+    public void setUpdated(LocalTime updated) {
         this.updated = updated;
     }
 

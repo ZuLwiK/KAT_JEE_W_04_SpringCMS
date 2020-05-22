@@ -5,6 +5,8 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +18,17 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Max(value=100)
+    @Column(length = 100)
+    @NotNull
+    @Size(min=5)
     private String name;
 
-    @Nullable
+    @Column(nullable = false)
     private String description;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
-    private List<Article> articles = new ArrayList<>();
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
+//    private List<Article> articles = new ArrayList<>();
 
 //    public Category(@Max(value = 100) String name, @Nullable String description) {
 //        this.name = name;

@@ -11,36 +11,31 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Edit Category</title>
+    <title>New Author</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="jquery-3.4.1.min.js"></script>
-    <script src="categories.js"></script>
+    <script src="authors.js"></script>
     <link rel="icon"
           type="image/png"
-          href="category.png"/>
+          href="author.png"/>
 </head>
 <body>
 <div class="container">
-    <h1 class="col-xs-12 col-sm-6 col-sm-offset-3">Edit category:</h1>
+    <h1 class="col-xs-12 col-sm-6 col-sm-offset-3">Add new author:</h1>
 </div>
 <div class="container">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        <form:form method="POST" modelAttribute="category" id="editCategoryForm">
+        <form:form method="POST" modelAttribute="author" id="authorForm">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <form:input id="name" path="name" value="${category.name}" class="form-control"
-                            required="true"/><form:errors
-                    path="name"/>
+                <label for="firstName">First name:</label>
+                <form:input id="firstName" path="firstName" class="form-control" required="true"/><form:errors
+                    path="firstName"/>
             </div>
-
             <div class="form-group">
-                <label for="description">Description:</label>
-                <form:input path="description" value="${category.description}" id="description"
-                            class="form-control"/><form:errors
-                    path="description"/>
+                <label for="lastName">Last name:</label>
+                <form:input path="lastName" id="lastName" class="form-control"/><form:errors path="lastName"/>
             </div>
-            <input type="hidden" name="categoryId" value="${category.id}"/>
-            <a href='/categories/all'>
+            <a href='/authors/all'>
                 <button type="button" id="cancelForm" class="btn btn-primary">Cancel</button>
             </a>
             <button type="submit" id="submitForm" class="btn btn-primary">Submit</button>

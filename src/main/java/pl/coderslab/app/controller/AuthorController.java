@@ -1,9 +1,13 @@
 package pl.coderslab.app.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.app.dao.AuthorDao;
 import pl.coderslab.app.entity.Author;
+import pl.coderslab.app.entity.Category;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/authors")
@@ -20,12 +24,12 @@ public class AuthorController {
         return authorDao.findAuthorById(id);
     }
 
-    @PostMapping("")
+/*    @PostMapping("")
     @ResponseBody
     public Author create(@RequestBody Author author){
         authorDao.saveAuthor(author);
         return author;
-    }
+    }*/
 
     @PutMapping("/{id}")
     @ResponseBody
@@ -36,12 +40,12 @@ public class AuthorController {
         authorDao.updateAuthor(authorInDb);
         return authorInDb;
     }
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     @ResponseBody
     public void delete(@PathVariable Long id){
-        authorDao.deleteAuthor(id);
+        authorDao.deleteAuthor();
     }
-
+*/
     @RequestMapping("/populate")
     @ResponseBody
     public void populateWithAuthors(){
@@ -51,5 +55,42 @@ public class AuthorController {
             author.setLastName("lastName"+i);
             authorDao.saveAuthor(author);
         }
+    }
+    //Form controllers
+    //Wyświetlanie wszystkich kategorii
+    @GetMapping("/all")
+    public String getAllAuthors(Model model){
+        List<Author> authors = authorDao.findAllAuthors();
+        model.addAttribute("authors", authors);
+        return "authors";
+    }
+    //  Dodawanie nowej kategorii po odpowiedniej walidacji
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String getAuthorForm(Model model) {
+        model.addAttribute("author", new Author());
+        return "authorForm";
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String create(@ModelAttribute Author author) {
+        authorDao.saveAuthor(author);
+        return ("redirect:/categories/all");
+    }
+    // Edytowanie kategorii z odpowiednią walidacją
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public String getEditForm(Model model, @PathVariable long id) {
+        Author author = authorDao.findAuthorById(id);
+        model.addAttribute("author", author);
+        return "editAuthorForm";
+    }
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.POST)
+    public String update(@ModelAttribute Author author) {
+        authorDao.updateAuthor(author);
+        return "redirect:/authors/all";
+    }
+    // Usuwanie kategorii
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@ModelAttribute Author author){
+        authorDao.deleteAuthor(author);
+        return "redirect:/categories/all";
     }
 }

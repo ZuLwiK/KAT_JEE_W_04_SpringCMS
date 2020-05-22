@@ -2,10 +2,13 @@ package pl.coderslab.app.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.app.entity.Article;
 import pl.coderslab.app.entity.Author;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 
 @Repository
@@ -18,8 +21,8 @@ public class AuthorDao {
         entityManager.persist(author);
     }
 
-    public void deleteAuthor(Long id) {
-        entityManager.remove(findAuthorById(id));
+    public void deleteAuthor(Author author) {
+        entityManager.remove(entityManager.contains(author) ? author : entityManager.merge(author));
     }
 
     public Author findAuthorById(Long id) {
@@ -28,5 +31,11 @@ public class AuthorDao {
 
     public void updateAuthor(Author author) {
         entityManager.merge(author);
+    }
+
+    public List<Author> findAllAuthors() {
+        Query query = entityManager.createQuery("SELECT a FROM Author a");
+        List<Author> authors = query.getResultList();
+        return authors;
     }
 }
