@@ -3,7 +3,6 @@ package pl.coderslab.app.dao;
 import org.springframework.stereotype.Repository;
 import pl.coderslab.app.entity.Category;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;

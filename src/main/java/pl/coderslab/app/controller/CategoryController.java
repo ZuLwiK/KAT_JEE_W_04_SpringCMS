@@ -4,14 +4,11 @@ package pl.coderslab.app.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.app.dao.CategoryDao;
-import pl.coderslab.app.entity.Article;
 import pl.coderslab.app.entity.Category;
 
 import javax.validation.Valid;
-import java.awt.print.Book;
 import java.util.List;
 
 @Controller
@@ -77,7 +74,10 @@ public class CategoryController {
         return "categoryForm";
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String create(@ModelAttribute Category category) {
+    public String create(@Valid Category category, BindingResult result) {
+        if (result.hasErrors()){
+            return "categoryForm";
+        }
         categoryDao.saveCategory(category);
         return ("redirect:/categories/all");
     }
@@ -89,7 +89,10 @@ public class CategoryController {
         return "editCategoryForm";
     }
     @RequestMapping(value = "edit/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute Category category) {
+    public String update(@Valid Category category,BindingResult result) {
+        if(result.hasErrors()){
+            return "editCategoryForm";
+        }
         categoryDao.updateCategory(category);
         return "redirect:/categories/all";
     }

@@ -4,6 +4,8 @@ package pl.coderslab.app.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
+
 @Entity
 @Table(name = "authors")
 public class Author {

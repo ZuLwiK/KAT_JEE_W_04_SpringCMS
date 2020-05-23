@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class ArticleDao {
     EntityManager entityManager;
 
     public void saveArticle(Article article) {
-        article.setCreated(LocalTime.now());
+//        article.setCreated(LocalTime.now());
         entityManager.persist(article);
     }
 
@@ -31,9 +30,10 @@ public class ArticleDao {
     }
 
     public void updateArticle(Article article) {
-//        article.setCreated(article.getCreated());
+//        LocalTime created=article.getCreated();
 //        article.setUpdated(LocalTime.now());
         entityManager.merge(article);
+//        article.setCreated(created);
     }
 
     public List<Article> findLastFiveArticles() {

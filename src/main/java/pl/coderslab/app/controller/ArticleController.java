@@ -2,6 +2,7 @@ package pl.coderslab.app.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.app.dao.ArticleDao;
 import pl.coderslab.app.dao.AuthorDao;
@@ -10,7 +11,7 @@ import pl.coderslab.app.entity.Article;
 import pl.coderslab.app.entity.Author;
 import pl.coderslab.app.entity.Category;
 
-import java.time.LocalDateTime;
+import javax.validation.Valid;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -63,11 +64,14 @@ public class ArticleController {
     @RequestMapping("/populate")
     @ResponseBody
     public void populateWithArticles(){
+        String content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id nisl sapien. Nulla dignissim non dui eu efficitur. Aenean non lectus dictum, gravida lorem et, imperdiet sapien. Nullam ac eros enim. Aliquam lobortis feugiat est, ac sollicitudin magna venenatis at. Nullam quis placerat eros. Nunc congue, nunc vitae efficitur tempor, velit libero convallis metus, eu finibus purus orci sed erat.\n" +
+                "\n" +
+                "Phasellus imperdiet, lacus commodo lacinia ultricies, nibh nunc gravida enim, ut finibus massa leo nec ipsum. Sed sit amet nibh vitae risus ullamcorper pharetra. Aenean a diam id turpis gravida viverra.";
         for (int i = 1; i < 6; i++) {
             Article article = new Article();
             article.setTitle("title"+i);
             article.setCreated(LocalTime.now());
-            article.setContent("content"+i);
+            article.setContent(content+i);
             article.setAuthor(authorDao.findAuthorById(1L));
             article.setCategories(Arrays.asList(categoryDao.findCategoryById(1L),categoryDao.findCategoryById(2L)));article.setUpdated(null);
             articleDao.saveArticle(article);
@@ -88,7 +92,10 @@ public class ArticleController {
         return "articleForm";
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String create(@ModelAttribute Article article) {
+    public String create(@Valid Article article, BindingResult result) {
+        if (result.hasErrors()){
+            return "articleForm";
+        }
         article.setCreated(LocalTime.now());
         articleDao.saveArticle(article);
         return ("redirect:/articles/all");
@@ -101,8 +108,11 @@ public class ArticleController {
         return "editArticleForm";
     }
     @RequestMapping(value = "edit/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute Article article) {
-        article.setCreated(article.getCreated());
+    public String update(@Valid Article article, BindingResult result) {
+        if (result.hasErrors()){
+            return "editArticleForm";
+        }
+        article.setCreated(articleDao.findArticleById(article.getId()).getCreated());
         article.setUpdated(LocalTime.now());
         articleDao.updateArticle(article);
         return "redirect:/articles/all";

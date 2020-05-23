@@ -8,6 +8,13 @@
     <meta charset="UTF-8">
     <title>Articles</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+        td.wrap{
+            column-width: 150px;
+        }
+        td.wrap {
+        word-wrap: break-word;
+    }</style>
 </head>
 <body>
 <div>
@@ -33,7 +40,7 @@
                     <td><c:out value="${article.author.lastName}"/></td>
                     <td><c:forEach items="${article.categories}" var="category"><c:out
                             value="${category.name}"/><br></c:forEach></td>
-                    <td><c:out value="${article.content}"/></td>
+                    <td class="wrap"><c:out value="${article.content}"/></td>
                     <td><c:out value="${article.created}"/></td>
                     <td><c:out value="${article.updated}"/></td>
                     <td><a href='/articles/edit/${article.id}'>

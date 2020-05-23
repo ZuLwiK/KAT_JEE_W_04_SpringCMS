@@ -4,15 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.app.dao.ArticleDao;
 import pl.coderslab.app.entity.Article;
-import pl.coderslab.app.entity.Author;
-import pl.coderslab.app.entity.Category;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller

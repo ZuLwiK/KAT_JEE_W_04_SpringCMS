@@ -3,7 +3,7 @@ package pl.coderslab.app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalTime;
@@ -18,7 +18,7 @@ public class Article {
     private Long id;
 
     @Column(length=200)
-    @NotNull
+    @NotBlank
     @Size(max = 200)
     private String title;
 

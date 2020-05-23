@@ -2,7 +2,6 @@ package pl.coderslab.app.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.app.entity.Article;
 import pl.coderslab.app.entity.Author;
 
 import javax.persistence.EntityManager;

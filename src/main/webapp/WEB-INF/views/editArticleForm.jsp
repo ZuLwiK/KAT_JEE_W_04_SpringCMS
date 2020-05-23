@@ -46,6 +46,8 @@
                 <form:textarea path="content" value="${article.content}" id="content" class="form-control"
                                type="content"/><form:errors path="content"/>
             </div>
+<%--            <form:hidden path="created" value="${article.created}"/>--%>
+        <%--    <form:hidden path="created"/>--%>
             <a href='/articles/all'>
                 <button type="button" id="cancelForm" class="btn btn-primary">Cancel</button>
             </a>
